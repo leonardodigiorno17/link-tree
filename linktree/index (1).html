@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leonardo Di Giorno - Linktree</title>
+
+  <!-- Libreria jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    *{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:'Segoe UI', Arial, sans-serif;
+  color:white;
+  text-align:center;
+  min-height:100vh;
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,.18), transparent 30%),
+    linear-gradient(135deg,#350000,#8b0000,#e50914,#5a0000);
+}
+
+/* SFONDO NUVOLE */
+.clouds{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  overflow:hidden;
+}
+
+.cloud{
+  position:absolute;
+  width:300px;
+  height:100px;
+  background:rgba(255,255,255,0.18);
+  border-radius:80px;
+  filter:blur(6px);
+  animation:moveClouds linear infinite;
+}
+
+.cloud::before,
+.cloud::after{
+  content:"";
+  position:absolute;
+  background:rgba(255,255,255,0.18);
+  border-radius:50%;
+}
+
+.cloud::before{
+  width:130px;
+  height:130px;
+  top:-55px;
+  left:45px;
+}
+
+.cloud::after{
+  width:170px;
+  height:170px;
+  top:-85px;
+  right:30px;
+}
+
+.cloud:nth-child(1){
+  top:12%;
+  left:-350px;
+  animation-duration:38s;
+}
+
+.cloud:nth-child(2){
+  top:42%;
+  left:-450px;
+  animation-duration:55s;
+  animation-delay:7s;
+  transform:scale(.8);
+}
+
+.cloud:nth-child(3){
+  top:72%;
+  left:-400px;
+  animation-duration:45s;
+  animation-delay:14s;
+  transform:scale(1.15);
+}
+
+@keyframes moveClouds{
+  from{transform:translateX(-10vw)}
+  to{transform:translateX(150vw)}
+}
+
+/* CARD PRINCIPALE */
+.wrapper{
+  width:min(92%, 460px);
+  margin:55px auto;
+  padding:34px 24px;
+  border-radius:34px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,0.28);
+  box-shadow:
+    0 25px 60px rgba(0,0,0,.35),
+    inset 0 0 25px rgba(255,255,255,.08);
+.profile-img{
+  width:125px;
+  height:125px;
+  border-radius:50%;
+  margin:0 auto 18px;
+  overflow:hidden;
+  border:2px solid rgba(255,255,255,.45);
+  box-shadow:
+    0 0 35px rgba(255,255,255,.3),
+    0 0 55px rgba(255,0,0,.35);
+}
+
+.profile-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:50%;
+}
+
+h1{
+  margin:8px 0 6px;
+  font-size:32px;
+  letter-spacing:.5px;
+}
+
+p{
+  margin:0 0 25px;
+  opacity:.9;
+  font-size:15px;
+}
+
+h2{
+  margin-top:32px;
+  font-size:22px;
+}
+
+/* LINK */
+.link{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin:14px 0;
+  padding:15px 18px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.15);
+  color:white;
+  text-decoration:none;
+  font-weight:700;
+  letter-spacing:.2px;
+  border:1px solid rgba(255,255,255,0.25);
+  transition:.3s ease;
+  box-shadow:0 8px 20px rgba(0,0,0,.18);
+}
+
+.link:hover{
+  transform:translateY(-4px) scale(1.03);
+  background:white;
+  color:#b30000;
+  box-shadow:0 15px 35px rgba(255,255,255,.35);
+}
+
+.link img{
+  width:28px;
+  height:28px;
+}
+
+/* TABELLA */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:24px 0;
+  overflow:hidden;
+  border-radius:18px;
+  background:rgba(255,255,255,0.14);
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+th, td{
+  padding:13px 10px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.22);
+  font-size:14px;
+}
+
+th{
+  background:rgba(255,255,255,0.25);
+  font-size:15px;
+}
+
+td{
+  background:rgba(255,255,255,0.07);
+}
+
+/* FORM */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  text-align:left;
+  margin-top:20px;
+  padding:18px;
+  border-radius:22px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.22);
+}
+
+label{
+  font-weight:700;
+  font-size:14px;
+}
+
+input,
+textarea{
+  width:100%;
+  padding:13px;
+  border:none;
+  border-radius:14px;
+  outline:none;
+  font-size:14px;
+  background:rgba(255,255,255,0.9);
+}
+
+input:focus,
+textarea:focus{
+  box-shadow:0 0 0 3px rgba(255,255,255,.35);
+}
+
+textarea{
+  min-height:105px;
+  resize:vertical;
+}
+
+button{
+  margin-top:8px;
+  padding:14px;
+  border:none;
+  border-radius:16px;
+  background:linear-gradient(135deg,#fff,#ffdede);
+  color:#a00000;
+  font-weight:800;
+  cursor:pointer;
+  transition:.3s;
+}
+
+button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 25px rgba(255,255,255,.55);
+}
+
+footer{
+  margin-top:26px;
+  font-size:13px;
+  opacity:.8;
+}
+
+/* MOBILE */
+@media(max-width:500px){
+  .wrapper{
+    margin:35px auto;
+    padding:28px 18px;
+  }
+
+  h1{
+    font-size:27px;
+  }
+
+  .profile-img{
+    width:110px;
+    height:110px;
+  }
+
+  th, td{
+    font-size:13px;
+    padding:10px 7px;
+  }
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- Nuvole animate -->
+  <div class="clouds">
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+  </div>
+
+  <main class="wrapper">
+
+    <div class="profile-img">
+  <img src="ppf.png" alt="Leonardo Di Giorno">
+</div>
+
+    <h1>Leonardo Di Giorno</h1>
+    <p>Studente | Giocatore di basket</p>
+
+    <!-- Link social -->
+    <a class="link" href="https://www.tiktok.com/@wleonardo_17" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/3046/3046126.png">
+      TikTok
+    </a>
+
+    <a class="link" href="https://www.instagram.com/leonardo_digiorno/" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+      Instagram
+    </a>
+
+    <a class="link" href="mailto:leonardo.digiorno.2007@gmail.com">
+      ✉️ Email
+    </a>
+
+    <a class="link" href="https://discord.com/channels/@me" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png">
+      Discord
+    </a>
+
+    <!-- Link relativo alla pagina Credits -->
+    <a class="link" href="credits.html">
+      📄 Vai ai Credits
+    </a>
+
+    <!-- Tabella dati -->
+    <h2>Orari attività</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Attività</th>
+          <th>Giorno</th>
+          <th>Orario</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Scuola</td>
+          <td>Lunedì - Venerdì</td>
+          <td>08:00 - 14:00</td>
+        </tr>
+
+        <tr>
+          <td>Basket</td>
+          <td>Martedì e Giovedì</td>
+          <td>18:00</td>
+        </tr>
+
+        <tr>
+          <td>Social</td>
+          <td>Weekend</td>
+          <td>20:00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Form contatti -->
+    <h2>Contattami</h2>
+
+    <form id="nomeForm">
+      <label for="campoNome">Nome</label>
+      <input type="text" id="campoNome" placeholder="Inserisci il tuo nome" required>
+
+      <label for="campoEmail">Email</label>
+      <input type="email" id="campoEmail" placeholder="Inserisci la tua email" required>
+
+      <label for="campoMessaggio">Messaggio</label>
+      <textarea id="campoMessaggio" placeholder="Scrivi il tuo messaggio..." required></textarea>
+
+      <button type="submit">Invia</button>
+    </form>
+
+    <footer>
+      Personal Linktree - Leonardo Di Giorno
+    </footer>
+
+  </main>
+
+  <script>
+    // Validazione email lato client
+    document.getElementById('nomeForm').addEventListener('submit', function(e) {
+      const email = document.getElementById('campoEmail').value;
+
+      if (!email.includes('@')) {
+        e.preventDefault();
+        alert("Inserisci un indirizzo email valido!");
+      } else {
+        e.preventDefault();
+        alert("Messaggio inviato correttamente!");
+      }
+    });
+
+    // Effetto jQuery sulla tabella
+    $(document).ready(function() {
+      $("table").hide().fadeIn(2000);
+    });
+  </script>
+
+</body>
+</html>
